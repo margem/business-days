@@ -77,7 +77,7 @@ func InInterval(begin, end time.Time, weekDays ...int) (int, []time.Time) {
 	days := int(end.Sub(begin).Hours() / 24)
 
 	for i := 0; i < days; i++ {
-		date := begin.Add(time.Duration(i) * time.Hour)
+		date := begin.AddDate(0, 0, i)
 		if contains(int(date.Weekday()), weekDays...) {
 			count++
 			dates = append(dates, date)
