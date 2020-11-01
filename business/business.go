@@ -6,6 +6,8 @@ import (
 	"github.com/jinzhu/now"
 )
 
+var dates = []time.Time{}
+
 // IsBusiness - Check if day is business day.
 func IsBusiness(date time.Time, weekDays ...int) bool {
 	if len(weekDays) <= 0 {
@@ -18,8 +20,6 @@ func IsBusiness(date time.Time, weekDays ...int) bool {
 // InWeek - Return total and business dates in month.
 func InWeek(date time.Time, weekDays ...int) (int, []time.Time) {
 	count := 0
-	dates := []time.Time{}
-
 	end := now.With(date).EndOfWeek()
 	begin := now.With(date).BeginningOfWeek()
 
@@ -38,8 +38,6 @@ func InWeek(date time.Time, weekDays ...int) (int, []time.Time) {
 // InMonth - Return total and business dates in month.
 func InMonth(date time.Time, weekDays ...int) (int, []time.Time) {
 	count := 0
-	dates := []time.Time{}
-
 	end := now.With(date).EndOfMonth()
 	begin := now.With(date).BeginningOfMonth()
 
@@ -58,8 +56,6 @@ func InMonth(date time.Time, weekDays ...int) (int, []time.Time) {
 // InInterval - Return total and business datae in week.
 func InInterval(begin, end time.Time, weekDays ...int) (int, []time.Time) {
 	count := 0
-	dates := []time.Time{}
-
 	days := int(end.Sub(begin).Hours() / 24)
 
 	for i := 0; i < days; i++ {
