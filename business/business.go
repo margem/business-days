@@ -26,10 +26,10 @@ func InWeek(date time.Time, weekDays ...int) (int, []time.Time) {
 	days := int(end.Sub(begin).Hours() / 24)
 
 	for i := 0; i < days; i++ {
-		date := begin.Add(time.Duration(i) * time.Hour)
+		date := begin.AddDate(0, 0, i)
 		if contains(int(date.Weekday()), weekDays...) {
-			count++
 			dates = append(dates, date)
+			count++
 		}
 	}
 	return count, dates
@@ -44,16 +44,34 @@ func InMonth(date time.Time, weekDays ...int) (int, []time.Time) {
 	days := int(end.Sub(begin).Hours() / 24)
 
 	for i := 0; i < days; i++ {
-		date := begin.Add(time.Duration(i) * time.Hour)
+		date := begin.AddDate(0, 0, i)
 		if contains(int(date.Weekday()), weekDays...) {
-			count++
 			dates = append(dates, date)
+			count++
 		}
 	}
 	return count, dates
 }
 
-// InInterval - Return total and business datae in week.
+// InYear - Return total and business data in week.
+func InYear(date time.Time, weekDays ...int) (int, []time.Time) {
+	count := 0
+	end := now.With(date).EndOfYear()
+	begin := now.With(date).BeginningOfYear()
+
+	days := int(end.Sub(begin).Hours() / 24)
+
+	for i := 0; i < days; i++ {
+		date := begin.AddDate(0, 0, i)
+		if contains(int(date.Weekday()), weekDays...) {
+			dates = append(dates, date)
+			count++
+		}
+	}
+	return count, dates
+}
+
+// InInterval - Return total and business data in time interval.
 func InInterval(begin, end time.Time, weekDays ...int) (int, []time.Time) {
 	count := 0
 	days := int(end.Sub(begin).Hours() / 24)
